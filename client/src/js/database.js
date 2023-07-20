@@ -14,15 +14,16 @@ const initdb = async () =>
 
 // A logic to a method that accepts some content and adds it to the database
 
-export const putDb = async (id, content) => {
+export const putDb = async (content) => {
   try {
     const jateDb = await openDB("jate", 1);
 
     const tx = jateDb.transaction("jate", "readwrite");
     const store = tx.objectStore("jate");
 
-    const request = store.put({ id: id, jate: content });
+    const request = store.put({ id: 1, value: content });
     const result = await request;
+    console.log(result);
 
     return result;
   } catch (err) {
@@ -41,8 +42,9 @@ export const getDb = async () => {
 
     const request = store.getAll();
     const result = await request;
+    console.log(result);
 
-    return result;
+    return result.value;
   } catch (err) {
     console.error("getDb not implemented", err);
   }

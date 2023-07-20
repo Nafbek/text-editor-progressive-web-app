@@ -27,31 +27,21 @@ warmStrategyCache({
 registerRoute(({ request }) => request.mode === "navigate", pageCache);
 
 // TODO: Implement asset caching
-
-// determine how to serve the request
-const serveCache = new StaleWhileRevalidate({
-  cacheName: "static-resources",
-  plugins: [
-    new CacheableResponsePlugin({
-      statuses: [0, 200],
-    }),
-  ],
-});
-
-// Checks the request destination
-const matchCallback = ({ request }) => {
-  return (
-    request.destination === "style" ||
-    request.destination === "script" ||
-    request.destination === "image"
-  );
-};
-
-//
-offlineFallback({
-  strategy: pageCache,
-  serveCache,
-});
-
-// Register a route for matching requests
-registerRoute(matchCallback, serveCache, pageCache);
+registerRoute(
+  ({ request }) => {
+    // return ["style", "script", "worker"].includes(request.destination);
+    return (
+      request.destination === "style" ||
+      request.destination === "script" ||
+      request.destination === "worker"
+    );
+  },
+  new StaleWhileRevalidate({
+    cacheName: "asset-cache",
+    plugins: [
+      new CacheableResponsePlugin({
+        statuses: [0, 200],
+      }),
+    ],
+  })
+);
