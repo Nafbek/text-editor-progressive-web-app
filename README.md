@@ -46,7 +46,7 @@ Once the application is opened in your browser, type a text in the text editor a
 
 If you want to run the application locally by cloning this repository, ensure you have Node.js installed on your system. Run a command `npm install` to install the required dependencies, and build the application by running `npm run build` command. Afterword, invoke the application by running a command `npm run start`; this will start the server and automatically open the app in your default browser.
 
-![A link] ()
+![A link] (https://afternoon-fortress-81330-b78c5982cf75.herokuapp.com/)
 
 ## License
 
